@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes fill {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.progress-bar {
+  width: 10rem;
+  height: 10rem;
+}
+
+.progress-bar .bg-gray-200 {
+  clip: rect(0, 5rem, 10rem, 0);
+}
+
+.progress-bar .bg-blue-500 {
+  clip: rect(0, 5rem, 10rem, 0);
+  animation: fill 2s linear forwards;
+}
