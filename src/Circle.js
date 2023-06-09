@@ -16,6 +16,7 @@ function Circle(props) {
     ctx.arc(centerX, centerY, radius, startAngle, startAngle + angleDiff);
     ctx.lineWidth = 11;
     ctx.strokeStyle = "#3d9d43";
+    ctx.lineCap = "round";
     ctx.stroke();
   }
 
@@ -70,7 +71,7 @@ function Circle(props) {
 
   return (
     <canvas
-      className="z-50 cursor-grab absolute "
+      className="z-50 cursor-grab absolute"
       ref={canvasRef}
       width="400"
       height="400"
