@@ -11,7 +11,7 @@ function Spinner(props) {
         src="/wheel-center-light.webp"
         width={80}
         height={80}
-        className="absolute w-[80px] h-[80px]"
+        className="absolute w-[80px] h-[80px] z-[2]"
         alt="Needle"
       />
     </>

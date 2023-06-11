@@ -19,6 +19,7 @@ function App() {
     const [range, setRange] = useState(100);
     const [spinning, setSpinning] = useState(false);
     const [angle, setAngle] = useState(0);
+    const [explosion, setExplosion] = useState(false);
     let intervalId;
     const [maxAngle, setMaxAngle] = useState(1000);
     const [angleDiff, setAngleDiff] = useState((2 * Math.PI * odd) / 100.0);
@@ -30,9 +31,13 @@ function App() {
         if (spinning) return;
 
         setAngle(0);
-        setMaxAngle(Math.floor(Math.random() * 360) + 3000);
-        setCanShowResult(true);
-        setSpinning(true);
+        setExplosion(true);
+        setTimeout(() => {
+            setExplosion(false);
+            setMaxAngle(Math.floor(Math.random() * 360) + 4000);
+            setCanShowResult(true);
+            setSpinning(true);
+        }, 700);
     };
 
     const showResult = () => {
@@ -61,15 +66,15 @@ function App() {
 
     useEffect(() => {
         if (spinning) {
-            let rotateSpeed = 10;
+            let rotateSpeed = 4;
             intervalId = setInterval(() => {
                 setAngle((angle) => {
-                    if (angle > maxAngle - 2600 && rotateSpeed > 0.7) {
+                    if (angle > maxAngle - 408 && rotateSpeed > 0.6) {
                         rotateSpeed -= 0.01;
                     }
                     return angle + rotateSpeed
                 });
-            }, 10);
+            }, 5);
         } else {
             showResult();
             clearInterval(intervalId);
@@ -119,6 +124,7 @@ function App() {
                     changeAngle={changeAngle}
                 />
                 <Spinner angle={angle} />
+                <img src="/explosion.gif" class={"absolute z-[1] " + (explosion? "block" : "hidden")} alt="explosion" />
             </div>
 
             <div className="mt-[150px] flex">
