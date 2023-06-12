@@ -1,7 +1,7 @@
 import { Slider } from "@material-tailwind/react";
 import "./App.css";
 import Circle from "./Circle";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import CurrencyInput from "react-currency-input-field";
 import Spinner from "./components/Spinner";
 
@@ -20,7 +20,7 @@ function App() {
     const [spinning, setSpinning] = useState(false);
     const [angle, setAngle] = useState(0);
     const [explosion, setExplosion] = useState(false);
-    let intervalId;
+    const intervalId = useRef();
     const [maxAngle, setMaxAngle] = useState(1000);
     const [angleDiff, setAngleDiff] = useState((2 * Math.PI * odd) / 100.0);
     const [startAngle, setStartAngle] = useState(0);
@@ -67,7 +67,7 @@ function App() {
     useEffect(() => {
         if (spinning) {
             let rotateSpeed = 4;
-            intervalId = setInterval(() => {
+            intervalId.current = setInterval(() => {
                 setAngle((angle) => {
                     if (angle > maxAngle - 408 && rotateSpeed > 0.6) {
                         rotateSpeed -= 0.01;
@@ -77,10 +77,10 @@ function App() {
             }, 5);
         } else {
             showResult();
-            clearInterval(intervalId);
+            clearInterval(intervalId.current);
         }
 
-        return () => clearInterval(intervalId);
+        return () => clearInterval(intervalId.current);
     }, [spinning]);
 
     useEffect(() => {
