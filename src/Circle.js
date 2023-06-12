@@ -59,16 +59,14 @@ function Circle(props) {
       canvas.removeEventListener("mousedown", handleMouseDown);
       canvas.removeEventListener("mousemove", handleMouseMove);
       canvas.removeEventListener("mouseup", handleMouseUp);
-    };
-    // eslint-disable-next-line no-console
+    }; // eslint-disable-next-line no-console
   }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
-    drawCircle(ctx);
-    // eslint-disable-next-line no-console
+    drawCircle(ctx); // eslint-disable-next-line no-console
   }, [props]);
 
   return (
