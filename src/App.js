@@ -70,7 +70,7 @@ function App() {
             intervalId.current = setInterval(() => {
                 setAngle((angle) => {
                     if (angle > maxAngle - 408 && rotateSpeed.current > 0.6) {
-                        rotateSpeed.current -= 0.01;
+                        rotateSpeed.current -= 0.02;
                         console.log(rotateSpeed.current)
                     }
                     return angle + rotateSpeed.current
