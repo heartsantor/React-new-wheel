@@ -5,21 +5,10 @@ function Circle(props) {
   const centerX = 200;
   const centerY = 200;
   const radius = 185;
-  let angleDiff;
-  let startAngle;
+  const angleDiff = props.angleDiff;
+  const startAngle = props.startAngle;
 
   const sensitive = 1;
-
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-
-    angleDiff = props.angleDiff;
-    startAngle = props.startAngle;
-
-    drawCircle(ctx);
-  }, [props]);
 
   function drawCircle(ctx) {
     clearCanvas(ctx);
@@ -73,6 +62,12 @@ function Circle(props) {
     };
   }, []);
 
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    drawCircle(ctx);
+  }, [props]);
 
   return (
     <canvas
