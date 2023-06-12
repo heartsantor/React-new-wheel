@@ -66,8 +66,8 @@ function App() {
 
     useEffect(() => {
         if (spinning) {
-            let rotateSpeed = 4; // eslint-disable-next-line no-console
-            intervalId = setInterval(() => {
+            let rotateSpeed = 4; 
+            intervalId = setInterval(() => { // eslint-disable-next-line no-console
                 setAngle((angle) => {
                     if (angle > maxAngle - 408 && rotateSpeed > 0.6) {
                         rotateSpeed -= 0.01;
