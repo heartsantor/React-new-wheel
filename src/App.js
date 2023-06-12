@@ -60,7 +60,10 @@ function App() {
         }
 
         setTimeout(() => {
-            if (canShowResult) alert(win);
+            if (canShowResult) {
+                alert(win);
+                setCanShowResult(false);
+            }
         }, 20);
     }, [angle, angleDiff, canShowResult, startAngle]);
 
