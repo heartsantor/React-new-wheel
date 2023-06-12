@@ -1,7 +1,7 @@
 import { Slider } from "@material-tailwind/react";
 import "./App.css";
 import Circle from "./Circle";
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
 import Spinner from "./components/Spinner";
 
@@ -25,12 +25,11 @@ function App() {
     const [angleDiff, setAngleDiff] = useState((2 * Math.PI * odd) / 100.0);
     const [startAngle, setStartAngle] = useState(0);
     const [canShowResult, setCanShowResult] = useState(false);
-    const rotateSpeed = useRef(4); 
-    //   const [rotateSpeed, setRotateSpeed] = useState(10);
+    const rotateSpeed = useRef(4);
 
     const startSpin = () => {
         if (spinning) return;
-        rotateSpeed.current = 4;
+
         setAngle(0);
         setExplosion(true);
         setTimeout(() => {
@@ -41,7 +40,7 @@ function App() {
         }, 700);
     };
 
-    const showResult = useCallback(() => {
+    const showResult = () => {
         let stop = (angle - 90) % 360;
         let start = ((startAngle * 180) / Math.PI) % 360;
         let end = (((startAngle + angleDiff) * 180) / Math.PI) % 360;
@@ -61,12 +60,9 @@ function App() {
         }
 
         setTimeout(() => {
-            if (canShowResult) {
-                alert(win);
-                setCanShowResult(false);
-            }
+            if (canShowResult) alert(win);
         }, 20);
-    }, [angle, angleDiff, canShowResult, startAngle]);
+    };
 
     useEffect(() => {
         if (spinning) {
@@ -85,7 +81,7 @@ function App() {
         }
 
         return () => clearInterval(intervalId.current);
-    }, [spinning, maxAngle, showResult]);
+    }, [spinning]);
 
     useEffect(() => {
         if (angle > maxAngle) {
@@ -128,7 +124,7 @@ function App() {
                     changeAngle={changeAngle}
                 />
                 <Spinner angle={angle} />
-                <img src="/explosion.gif" class={"absolute z-[1] " + (explosion? "block" : "hidden")} alt="explosion" />
+                <img src="/explosion.gif" className={"absolute z-[1] " + (explosion? "block" : "hidden")} alt="explosion" />
             </div>
 
             <div className="mt-[150px] flex">

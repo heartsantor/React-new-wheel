@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useRef, useEffect } from "react";
 
 function Circle(props) {
   const canvasRef = useRef(null);
@@ -10,7 +10,7 @@ function Circle(props) {
 
   const sensitive = 1;
 
-  const drawCircle = useCallback((ctx) => {
+  function drawCircle(ctx) {
     clearCanvas(ctx);
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, startAngle, startAngle + angleDiff);
@@ -18,7 +18,7 @@ function Circle(props) {
     ctx.strokeStyle = "#3d9d43";
     ctx.lineCap = "round";
     ctx.stroke();
-  }, [angleDiff, startAngle]);
+  }
 
   function clearCanvas(ctx) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -59,15 +59,15 @@ function Circle(props) {
       canvas.removeEventListener("mousedown", handleMouseDown);
       canvas.removeEventListener("mousemove", handleMouseMove);
       canvas.removeEventListener("mouseup", handleMouseUp);
-    }; 
-  }, [drawCircle, angleDiff, props]);
+    };
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
-    drawCircle(ctx); 
-  }, [drawCircle, props]);
+    drawCircle(ctx);
+  }, [props]);
 
   return (
     <canvas
