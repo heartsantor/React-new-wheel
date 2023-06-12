@@ -31,6 +31,7 @@ function App() {
         if (spinning) return;
 
         setAngle(0);
+        rotateSpeed.current = 4;
         setExplosion(true);
         setTimeout(() => {
             setExplosion(false);
