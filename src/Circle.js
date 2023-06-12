@@ -60,6 +60,7 @@ function Circle(props) {
       canvas.removeEventListener("mousemove", handleMouseMove);
       canvas.removeEventListener("mouseup", handleMouseUp);
     };
+    // eslint-disable-next-line no-console
   }, []);
 
   useEffect(() => {
@@ -67,6 +68,7 @@ function Circle(props) {
     const ctx = canvas.getContext("2d");
 
     drawCircle(ctx);
+    // eslint-disable-next-line no-console
   }, [props]);
 
   return (
