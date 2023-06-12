@@ -25,12 +25,12 @@ function App() {
     const [angleDiff, setAngleDiff] = useState((2 * Math.PI * odd) / 100.0);
     const [startAngle, setStartAngle] = useState(0);
     const [canShowResult, setCanShowResult] = useState(false);
-    let rotateSpeed = 4; 
+    const rotateSpeed = useRef(4); 
     //   const [rotateSpeed, setRotateSpeed] = useState(10);
 
     const startSpin = () => {
         if (spinning) return;
-        rotateSpeed = 4;
+        rotateSpeed.current = 4;
         setAngle(0);
         setExplosion(true);
         setTimeout(() => {
@@ -72,11 +72,11 @@ function App() {
         if (spinning) {
             intervalId.current = setInterval(() => {
                 setAngle((angle) => {
-                    if (angle > maxAngle - 408 && rotateSpeed > 0.6) {
-                        rotateSpeed -= 0.01;
-                        console.log(rotateSpeed)
+                    if (angle > maxAngle - 408 && rotateSpeed.current > 0.6) {
+                        rotateSpeed.current -= 0.01;
+                        console.log(rotateSpeed.current)
                     }
-                    return angle + rotateSpeed
+                    return angle + rotateSpeed.current
                 });
             }, 5);
         } else {
