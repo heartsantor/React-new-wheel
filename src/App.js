@@ -71,6 +71,7 @@ function App() {
                 setAngle((angle) => {
                     if (angle > maxAngle - 408 && rotateSpeed > 0.6) {
                         rotateSpeed -= 0.01;
+                        console.log(rotateSpeed)
                     }
                     return angle + rotateSpeed
                 });
