@@ -1,7 +1,7 @@
 import { Slider } from "@material-tailwind/react";
 import "./App.css";
 import Circle from "./Circle";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
 import Spinner from "./components/Spinner";
 
@@ -20,12 +20,12 @@ function App() {
     const [spinning, setSpinning] = useState(false);
     const [angle, setAngle] = useState(0);
     const [explosion, setExplosion] = useState(false);
-    let intervalId;
+    const intervalId = useRef();
     const [maxAngle, setMaxAngle] = useState(1000);
     const [angleDiff, setAngleDiff] = useState((2 * Math.PI * odd) / 100.0);
     const [startAngle, setStartAngle] = useState(0);
     const [canShowResult, setCanShowResult] = useState(false);
-    //   const [rotateSpeed, setRotateSpeed] = useState(10);
+    const rotateSpeed = useRef(4);
 
     const startSpin = () => {
         if (spinning) return;
@@ -66,21 +66,21 @@ function App() {
 
     useEffect(() => {
         if (spinning) {
-            let rotateSpeed = 4;
-            intervalId = setInterval(() => {
+            intervalId.current = setInterval(() => {
                 setAngle((angle) => {
-                    if (angle > maxAngle - 408 && rotateSpeed > 0.6) {
-                        rotateSpeed -= 0.01;
+                    if (angle > maxAngle - 408 && rotateSpeed.current > 0.6) {
+                        rotateSpeed.current -= 0.01;
+                        console.log(rotateSpeed.current)
                     }
-                    return angle + rotateSpeed
+                    return angle + rotateSpeed.current
                 });
             }, 5);
         } else {
             showResult();
-            clearInterval(intervalId);
+            clearInterval(intervalId.current);
         }
 
-        return () => clearInterval(intervalId);
+        return () => clearInterval(intervalId.current);
     }, [spinning]);
 
     useEffect(() => {
@@ -124,7 +124,7 @@ function App() {
                     changeAngle={changeAngle}
                 />
                 <Spinner angle={angle} />
-                <img src="/explosion.gif" class={"absolute z-[1] " + (explosion? "block" : "hidden")} alt="explosion" />
+                <img src="/explosion.gif" className={"absolute z-[1] " + (explosion? "block" : "hidden")} alt="explosion" />
             </div>
 
             <div className="mt-[150px] flex">
