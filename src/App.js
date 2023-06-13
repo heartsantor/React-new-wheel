@@ -17,28 +17,34 @@ function App() {
     const price = 150000000;
     const [odd, setOdd] = useState(CHANCES[4].value);
     const [range, setRange] = useState(100);
-    const [spinning, setSpinning] = useState(false);
+    const [duration, setDuration] = useState(0);
     const [angle, setAngle] = useState(0);
     const [explosion, setExplosion] = useState(false);
-    const intervalId = useRef();
-    const [maxAngle, setMaxAngle] = useState(1000);
     const [angleDiff, setAngleDiff] = useState((2 * Math.PI * odd) / 100.0);
     const [startAngle, setStartAngle] = useState(0);
-    const [canShowResult, setCanShowResult] = useState(false);
     const rotateSpeed = useRef(4);
 
     const startSpin = () => {
-        if (spinning) return;
 
         setAngle(0);
         rotateSpeed.current = 4;
         setExplosion(true);
         setTimeout(() => {
+            setDuration(0.2);
+            setAngle(-20);
             setExplosion(false);
-            setMaxAngle(Math.floor(Math.random() * 360) + 4000);
-            setCanShowResult(true);
-            setSpinning(true);
+        }, 500);
+        setTimeout(() => {
+            setDuration(12);
+        }, 600);
+        setTimeout(() => {
+            setAngle(Math.floor(Math.random() * 360) + 4000);
+            setTimeout(() => {
+                setDuration(0);
+                showResult();
+            }, 12500);
         }, 700);
+
     };
 
     const showResult = () => {
@@ -59,36 +65,8 @@ function App() {
                 win = true;
             }
         }
-
-        setTimeout(() => {
-            if (canShowResult) alert(win);
-        }, 20);
+        alert(win)
     };
-
-    useEffect(() => {
-        if (spinning) {
-            intervalId.current = setInterval(() => {
-                setAngle((angle) => {
-                    if (angle > maxAngle - 408 && rotateSpeed.current > 0.6) {
-                        rotateSpeed.current -= 0.02;
-                        console.log(rotateSpeed.current)
-                    }
-                    return angle + rotateSpeed.current
-                });
-            }, 5);
-        } else {
-            showResult();
-            clearInterval(intervalId.current);
-        }
-
-        return () => clearInterval(intervalId.current);
-    }, [spinning]);
-
-    useEffect(() => {
-        if (angle > maxAngle) {
-            setSpinning(false);
-        }
-    }, [angle, maxAngle]);
 
     useEffect(() => {
         setAngleDiff((2 * Math.PI * odd) / 100.0);
@@ -124,7 +102,7 @@ function App() {
                     startAngle={startAngle}
                     changeAngle={changeAngle}
                 />
-                <Spinner angle={angle} />
+                <Spinner angle={angle} duration={duration} />
                 <img src="/explosion.gif" className={"absolute z-[1] " + (explosion? "block" : "hidden")} alt="explosion" />
             </div>
 
