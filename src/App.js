@@ -33,7 +33,6 @@ function App() {
         setAngle(0);
         setFlag(false);
         const maxAngle = Math.floor(Math.random() * 360 + 9000);
-        console.log('max', maxAngle)
         rotateSpeed.current = 4;
         setExplosion(true);
         setTimeout(() => {
@@ -57,7 +56,6 @@ function App() {
 
     useEffect(() => {
         if(flag) {
-            console.log('222', angle);
             showResult();
         }
     },  [angle, flag])
@@ -82,7 +80,6 @@ function App() {
         }
 
         result.current = win;
-        console.log('result', result.current)
     };
 
     useEffect(() => {
