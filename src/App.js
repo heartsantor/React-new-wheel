@@ -43,7 +43,7 @@ function App() {
                 setDuration(0);
                 showResult();
             }, 12500);
-        }, 1110);
+        }, 700);
 
     };
 
