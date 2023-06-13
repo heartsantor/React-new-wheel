@@ -13,6 +13,8 @@ const CHANCES = [
     { name: "Max", value: 80 },
 ];
 
+
+
 function App() {
     const price = 150000000;
     const [odd, setOdd] = useState(CHANCES[4].value);
@@ -20,13 +22,18 @@ function App() {
     const [duration, setDuration] = useState(0);
     const [angle, setAngle] = useState(0);
     const [explosion, setExplosion] = useState(false);
+    const [flag, setFlag] = useState(false);
     const [angleDiff, setAngleDiff] = useState((2 * Math.PI * odd) / 100.0);
     const [startAngle, setStartAngle] = useState(0);
     const rotateSpeed = useRef(4);
+    const result = useRef(null);
 
     const startSpin = () => {
 
         setAngle(0);
+        setFlag(false);
+        const maxAngle = Math.floor(Math.random() * 360 + 9000);
+        console.log('max', maxAngle)
         rotateSpeed.current = 4;
         setExplosion(true);
         setTimeout(() => {
@@ -38,14 +45,22 @@ function App() {
             setDuration(12);
         }, 600);
         setTimeout(() => {
-            setAngle(Math.floor(Math.random() * 360) + 4000);
+            setAngle(maxAngle);
+            setFlag(true);
             setTimeout(() => {
                 setDuration(0);
-                showResult();
+                alert(result.current);
             }, 12500);
         }, 700);
 
     };
+
+    useEffect(() => {
+        if(flag) {
+            console.log('222', angle);
+            showResult();
+        }
+    },  [angle, flag])
 
     const showResult = () => {
         let stop = (angle - 90) % 360;
@@ -65,7 +80,9 @@ function App() {
                 win = true;
             }
         }
-        alert(win)
+
+        result.current = win;
+        console.log('result', result.current)
     };
 
     useEffect(() => {

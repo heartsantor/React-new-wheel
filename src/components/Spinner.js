@@ -2,7 +2,7 @@ function Spinner(props) {
   const style = {
     transform: `translateY(-50%) rotate(${props.angle}deg)`,
     transformOrigin: "bottom",
-    transition: `all ${props.duration}s`
+    transition: `all ${props.duration}s ease-out`
   };
 
   return (
